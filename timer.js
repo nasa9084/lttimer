@@ -94,13 +94,19 @@ function reset() {
     }
     // 初期化処理
     for (i=0; i<document.getElementsByName("timeradio").length; i++) {
-        var radio = document.getElementsByName("timeradio")[i];
+        radio = document.getElementsByName("timeradio")[i];
         if (radio.checked) {
             max = radio.value * 60;
-            minutes = radio.value;
+            minutes = Math.floor(radio.value);
+            break;
         }
     }
-    seconds = 0;
+    console.log("RADIO: " + String(radio.value));
+    if (String(radio.value).split(".")[1] == "0") {
+        seconds = 0;
+    } else {
+        seconds = parseFloat("0." + (String(radio.value).split(".")[1])) * 60;
+    }
     timer.innerHTML = timeToStr(minutes, seconds);
     basebody.style.background = "#ffffff";
     basebody.classList.remove("blink");
